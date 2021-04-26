@@ -12,6 +12,7 @@ const bodyParser = require('koa-bodyparser');
 const templating = require('./templating');
 const contriller = require('./controller');
 const isProduction = process.env.NODE_ENV === 'production';
+
 app.use(async (ctx, next) => { 
     console.log(`${ctx.request.method} ${ctx.request.url}`)
     await next(); // 调用下一个middleware
