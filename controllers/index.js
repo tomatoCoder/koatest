@@ -15,5 +15,10 @@ module.exports = {
         const query = ctx.query;
         console.log(query)
         ctx.response.body = '<span>hello world</span>'
+    },
+    'GET /register': async (ctx, next) => {
+        ctx.render('register.html', {
+            title: 'Welcome'
+        });
     }
 };

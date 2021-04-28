@@ -7,7 +7,7 @@
  */
 const models = require('../db/models')
 module.exports = {
-    'POST /register': async (ctx, next) => {
+    'POST /api/register': async (ctx, next) => {
         const {name, password} = ctx.request.body;
         console.log(name, password);
         // 数据库查找是否存在对象

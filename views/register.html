@@ -1,0 +1,16 @@
+<!--
+ * @Description: 
+ * @Author: qingyang
+ * @Date: 2021-04-22 16:47:29
+ * @LastEditors: qingyang
+ * @LastEditTime: 2021-04-27 13:11:26
+-->
+{% extends "base.html" %} {% block main %}
+<div class="container">
+    <form action="/api/register" method="post">
+        <p>name： <input name="name"></p> 
+        <p>Password： <input name="password"></p>
+        <input type="submit" value="注册"></input> 
+    </form>`
+</div>
+{% endblock %}

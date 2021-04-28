@@ -13,11 +13,19 @@ const templating = require('./templating');
 const contriller = require('./controller');
 const isProduction = process.env.NODE_ENV === 'production';
 
+const fs = require('fs');
+
 app.use(async (ctx, next) => { 
     console.log(`${ctx.request.method} ${ctx.request.url}`)
     await next(); // 调用下一个middleware
       
 })
+
+// static file support:
+if (!isProduction) {
+    let staticFiles = require('./static-files');
+    app.use(staticFiles('/static/', __dirname + '/static'));
+}
 app.use(bodyParser());
 app.use(templating('views', {
     noCache: !isProduction,

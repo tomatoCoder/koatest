@@ -1,0 +1,42 @@
+<!--
+ * @Description: 
+ * @Author: qingyang
+ * @Date: 2021-04-27 10:47:56
+ * @LastEditors: qingyang
+ * @LastEditTime: 2021-04-27 13:05:42
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <header class="navbar navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">node demo</a>
+            </div>
+            <nav class="collapse navbar-collapse" id="bs-navbar">
+                <ul class="nav navbar-nav">
+                    <li><a target="_blank" href="http://www.baidu.com">导航1</a></li>
+                    <li><a target="_blank" href="http://www.baidu.com">导航2</a></li>
+                    <li><a target="_blank" href="http://www.baidu.com">导航3</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    {% block main %} {% endblock %}
+    <footer>
+        <div class="container">
+          我是footer
+        </div>
+    </footer>
+</body>
+
+</html>
