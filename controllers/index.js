@@ -20,5 +20,11 @@ module.exports = {
         ctx.render('register.html', {
             title: 'Welcome'
         });
-    }
+    },
+    'GET /upload': async (ctx, next) => {
+        ctx.render('upload.html', {
+            title: 'Welcome'
+        });
+    },
+    
 };

@@ -5,13 +5,17 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "hot": "nodemon app.js"
   },
   "author": "qingyang",
   "license": "ISC",
   "dependencies": {
+    "@baiducloud/bos-uploader": "^1.4.0-rc.0",
+    "@baiducloud/sdk": "^1.0.0-rc.28",
     "@koa/cors": "^3.1.0",
     "bcryptjs": "^2.4.3",
+    "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
