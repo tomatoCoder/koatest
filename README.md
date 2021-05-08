@@ -20,8 +20,13 @@ seeders, 包含所有种子文件
 ## 创建数据库
 `npx sequelize db:create`
 ## 创建模型
-`npx sequelize model:generate --name User --attributes firstName:string,lastName:string,email:s`tring
+`npx sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string`
 在 models 文件夹中创建了一个 user 模型文件
 在 migrations 文件夹中创建了一个名字像 XXXXXXXXXXXXXX-create-user.js 的迁移文件
 ## 数据库中实际创建该表
 `npx sequelize db:migrate`
+
+
+## 启动redis
+打开cmd 定位到本地redis目录，
+`redis-server.exe redis.windows.conf`

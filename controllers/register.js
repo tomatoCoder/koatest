@@ -3,11 +3,11 @@
  * @Author: qingyang
  * @Date: 2021-04-22 17:36:13
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-06 11:03:37
+ * @LastEditTime: 2021-05-08 14:31:56
  */
 const models = require('../db/models');
 const {generateToken} = require('../utils/token')
-// const {getRedis, setRedis} = require('../utils/_redis')
+const {getRedis, setRedis} = require('../utils/_redis')
 const bcrypt = require('bcryptjs')
 module.exports = {
     'POST /api/register': async (ctx, next) => {
@@ -54,7 +54,7 @@ module.exports = {
                     data: token,
                     msg: '登录成功'
                 }
-                // setRedis(`Bearer ${token}`, user);
+                setRedis(`Bearer ${token}`, user);
             } else {
                 ctx.response.body = {
                     code: 10001,

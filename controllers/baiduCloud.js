@@ -3,13 +3,13 @@
  * @Author: qingyang
  * @Date: 2021-05-06 13:28:16
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-07 17:37:38
+ * @LastEditTime: 2021-05-07 17:23:23
  */
 
 var util = require('util');
 var STS = require('@baiducloud/sdk').STS;
 var kCredentials = {
-    ak: '4c99dd1c0ddb4af0866c55e5393c342',
+    ak: '4c99dd1c0ddb4af0866c55e5393c34',
     sk: '4387648add88450e87396821f2749a'
 };
 

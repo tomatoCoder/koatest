@@ -3,7 +3,7 @@
  * @Author: qingyang
  * @Date: 2021-05-06 16:13:30
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-07 18:04:20
+ * @LastEditTime: 2021-05-08 17:11:27
 -->
 <!doctype html>
 <html>
@@ -20,14 +20,14 @@
   </head>
   <body>
     <input type="file" id="file" >
-    <button type="submit">开始上传123</button>
+    <button type="submit">开始上传</button>
     <script>
       var uploader = new baidubce.bos.Uploader({
       browse_button: '#file',
       bos_bucket: 'liu-test',
       bos_endpoint: 'http://su.bcebos.com/',
-      bos_ak: '2f9546a5af1811eb96b4cdfc6054c8', 
-      bos_sk: 'c0d6cd72f78447a6a33145ae9cfaf2',
+      bos_ak: '2f9546a5af1811eb96b4cdfc6054c8b5', 
+      bos_sk: 'c0d6cd72f78447a6a33145ae9cfaf702',
       uptoken: 'ZjkyZmQ2YmQxZTQ3NDcyNjk0ZTg1ZjYyYjlkZjNjODB8AAAAAIACAAAD+SFnZT6+kckPaY6fLesOvXyDdvHPzHLEWixdmMzCleY246+KTQg/HnZ48pBDzwfcfj6M1vpAllQBWzJkY7kafhX2+rHd4Ex1hpaHHmgW5WlP6mFBxWRrcjDC/JsO7FeaUEYtjpCDmtaDkr4gy2FD82XAoBge0BnPajT1CBMr0cD6GF07edsVS+iAlC4xukwn+xTBnixZ7xLhXcYrNLlpxaVpJJfOEEuRTSp/xc7F/yws+cA4D5SaaoO1Yn5MYv7axDDpFJWRwkg42fTlqn0L7xY1zxyMRwKJOd1bajYR3b3RJ9dv+vJlaqQgchyGjmqlpRkl4osvevqHEbzae5wE6W3AAmmDaFP4oceGAFqs7uRw7U/ex4hjUbDY3CaDczIPgE6Q56jHZVHhBSf1w4S1TfvAk5LsyLMsnrSP6XnV8Nd5gGHHyVzopDO8ytwHlsfjhXJy60auNA20EoXniS0d',
       max_file_size: '1Gb',
       init: {
@@ -43,8 +43,49 @@
         }
       }
     });
-     $('button[type=submit]').click(function () {
-      uploader.start();
+    function beforeUpload(file) {
+      // const head = document.getElementsByTagName('head')[0];
+      // const script = document.createElement('script');
+      // script.onload = () => {
+        console.log('加载完毕');
+      const bosConfig = {
+        credentials: {
+          ak: '2f9546a5af1811eb96b4cdfc6054c8b',
+          sk: 'c0d6cd72f78447a6a33145ae9cfaf70'
+        },
+        xVars: { url: '12123131' },
+        endpoint: 'https://su.bcebos.com', // 根据您选用bos服务的区域配置相应的endpoint
+        sessionToken:
+          'ZjkyZmQ2YmQxZTQ3NDcyNjk0ZTg1ZjYyYjlkZjNjODB8AAAAAIACAAAD+SFnZT6+kckPaY6fLesOvXyDdvHPzHLEWixdmMzCleY246+KTQg/HnZ48pBDzwfcfj6M1vpAllQBWzJkY7kafhX2+rHd4Ex1hpaHHmgW5WlP6mFBxWRrcjDC/JsO7FeaUEYtjpCDmtaDkr4gy2FD82XAoBge0BnPajT1CBMr0cD6GF07edsVS+iAlC4xukwn+xTBnixZ7xLhXcYrNLlpxaVpJJfOEEuRTSp/xc7F/yws+cA4D5SaaoO1Yn5MYv7axDDpFJWRwkg42fTlqn0L7xY1zxyMRwKJOd1bajYR3b3RJ9dv+vJlaqQgchyGjmqlpRkl4osvevqHEbzae5wE6W3AAmmDaFP4oceGAFqs7uRw7U/ex4hjUbDY3CaDczIPgE6Q56jHZVHhBSf1w4S1TfvAk5LsyLMsnrSP6XnV8Nd5gGHHyVzopDO8ytwHlsfjhXJy60auNA20EoXniS0d'
+      };
+      const bucket = 'liu-test'; // 设置您想要操作的bucket
+      // eslint-disable-next-line no-undef
+      const client = new baidubce.sdk.BosClient(bosConfig);
+      const options = {
+        'Content-Length': file.size, // 添加http header
+        'Content-Type': 'image/png; charset=UTF-8', // 添加http header
+        'Cache-Control': 'public, max-age=31536000', // 指定缓存指令
+        // 'x-bce-meta-foo1': 'bar1', // 添加自定义meta信息
+        // 'x-bce-meta-foo2': 'bar2', // 添加自定义meta信息
+        // 'x-bce-meta-foo3': 'bar4', // 添加自定义meta信息
+        // 'X-Vars': 'bar4',
+        // xVars: { url: 'test' }
+      };
+    //   let data =  new Date(new Date().getTime() - 60*60*1000);
+    //   const authNumber = client.generatePresignedUrl(bucket,'/test/'+file.name , data,1800);
+      client
+        .putObjectFromBlob(bucket, '/test/'+file.name, file, options)
+        .then((response) => {
+            var url = 'http://su.bcebos.com/' + bucket + '/' + 'test/'+ file.name;
+            $(document.body).append($('<div><a href="' + url + '">' + url + '</a></div>'));
+            console.log(response);
+        }) // 成功
+        .catch((error) => console.error(error)); // 失败
+    }
+     $('button[type=submit]').click(function (res) {
+         let file = $('#file')[0].files[0];
+         beforeUpload(file)
+    //   uploader.start();
       return false;
     });
 

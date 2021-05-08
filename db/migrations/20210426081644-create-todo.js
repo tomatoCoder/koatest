@@ -20,6 +20,12 @@ module.exports = {
       },
       status: {
         type: Sequelize.STRING
+      },
+      statusName: {
+        type: Sequelize.STRING
+      },
+      finisher: {
+        type: Sequelize.STRING
       }
     });
   },
