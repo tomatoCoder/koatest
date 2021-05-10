@@ -3,7 +3,7 @@
  * @Author: qingyang
  * @Date: 2021-05-08 13:05:43
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-08 17:33:35
+ * @LastEditTime: 2021-05-10 13:08:49
  */
 const models = require('../db/models');
 const {STATUS_OBJ} = require('../utils/contant')
@@ -43,7 +43,7 @@ module.exports = {
     // 更新todo
     'POST /api/todo/update': async (ctx, next) => {
         const {id, status} = ctx.request.body;
-        const statusName = STATUS_OBJ[status]
+        const statusName = status && STATUS_OBJ[status]
          const Todo = await models.Todo.update({
              status,
              statusName

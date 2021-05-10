@@ -3,12 +3,13 @@
  * @Author: qingyang
  * @Date: 2021-04-22 17:36:13
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-08 14:31:56
+ * @LastEditTime: 2021-05-10 11:24:38
  */
 const models = require('../db/models');
 const {generateToken} = require('../utils/token')
 const {getRedis, setRedis} = require('../utils/_redis')
 const bcrypt = require('bcryptjs')
+const {ParameterException} = require('../utils/http-exception')
 module.exports = {
     'POST /api/register': async (ctx, next) => {
         const {name, password} = ctx.request.body;
@@ -56,19 +57,11 @@ module.exports = {
                 }
                 setRedis(`Bearer ${token}`, user);
             } else {
-                ctx.response.body = {
-                    code: 10001,
-                    data: null,
-                    msg: '账号或密码错误'
-                } 
+                throw new ParameterException('账号或密码错误') // 抛错
             } 
 
         } else {
-            ctx.response.body = {
-                code: 10001,
-                data: null,
-                msg: '账号不存在或密码错误'
-            }
+            throw new ParameterException('账号不存在') // 抛错
         }
     },
     'GET /api/getUserInfo': async (ctx, next) => {
