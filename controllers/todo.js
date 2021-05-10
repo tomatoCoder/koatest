@@ -3,26 +3,34 @@
  * @Author: qingyang
  * @Date: 2021-05-08 13:05:43
  * @LastEditors: qingyang
- * @LastEditTime: 2021-05-08 15:29:24
+ * @LastEditTime: 2021-05-08 17:33:35
  */
 const models = require('../db/models');
 const {STATUS_OBJ} = require('../utils/contant')
+
+// models.Todo.hasOne(models.User, {
+//     foreignKey: 'id'
+//   })
+// as 表示起别名 
+// 对于user来说，todo可以很多 所以是todo.belongsTo.user
+models.Todo.belongsTo(models.User,{
+    as: 'finisherInfo', 
+    foreignKey: 'finisher', // finisher是TODO表的外键
+    targetKey: 'id'})   // 如果不指定targetKey属性，默认关联关联User表的id
 module.exports = {
      // 列表todo 
     'GET /api/todo/list': async (ctx, next) => {
         const {limit, offset} = ctx.query;
         const TodoList =  await models.Todo.findAll({
             limit: parseInt(limit || 10),
-            offset: parseInt(offset || 0)
+            offset: parseInt(offset || 0),
+            include: [{ // include关键字表示关联查询
+                model: models.User, // 指定关联的model
+                as:'finisherInfo', // 由于前面建立映射关系时为class表起了别名，那么这里也要与前面保持一致，否则会报错
+                attributes: ['name'], // 这里的attributes属性表示查询class表的name字段 [['name','className']] 表示起别名
+            }]
+
         })
-        await TodoList.forEach(async (item) => {
-            const user = await models.User.findOne({
-                   where: {id: item.finisher}}
-            )
-            console.log(user)
-            item.finisherName = user? user.name: ''
-         })
-        console.log(TodoList)
         ctx.response.body = {
             code: 10000,
             data: {
