@@ -4,10 +4,11 @@
   "description": "koa测试",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node app.js",
     "hot": "nodemon app.js",
-    "debug": "node --inspect app.js"
+    "debug": "node --inspect app.js",
+    "ts": "tsc -t es5 tsTest.ts",
+    "build": "webpack"
   },
   "author": "qingyang",
   "license": "ISC",
@@ -26,12 +27,24 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "mz": "2.4.0",
+    "nodejs-websocket": "^1.7.2",
     "nunjucks": "2.4.2",
     "redis": "^3.1.2",
     "sequelize": "^6.6.2",
     "xss": "^1.0.8"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.2.0"
+    "babel-core": "^6.10.4",
+    "babel-loader": "^7.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^5.2.4",
+    "file-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "sequelize-cli": "^6.2.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
   }
 }
